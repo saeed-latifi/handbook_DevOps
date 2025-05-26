@@ -1,0 +1,40 @@
+mkdir -p ~/volumes/postgres
+
+podman run -d \
+    --name postgres \
+    -e POSTGRES_USER=postgres \
+    -e POSTGRES_PASSWORD=1234 \
+    -p 5432:5432 \
+    -v ~/volumes/postgres:/var/lib/postgresql/data \
+    docker.io/library/postgres:latest
+
+***
+optional : -e POSTGRES_DB=myDB \
+
+=================================================
+mkdir -p ~/volumes/minio
+
+podman run -d \
+  --name minio \
+  -p 9000:9000 \
+  -p 9001:9001 \
+  -e MINIO_ROOT_USER=admin \
+  -e MINIO_ROOT_PASSWORD=password12345 \
+  -v ~/volumes/minio:/data \
+  docker.io/minio/minio server /data --console-address :9001
+
+***
+password mut be at least 8 character 
+
+=================================================
+mkdir -p ~/volumes/meilisearch
+
+podman run -d \
+  --name meilisearch \
+  -p 7700:7700 \
+  -e MEILI_HTTP_ADDR="0.0.0.0:7700" \
+  -v ~/volumes/meilisearch:/meili_data \
+  docker.io/getmeili/meilisearch:latest
+
+***
+optional : -e MEILI_MASTER_KEY=your_strong_api_key_here \
