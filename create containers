@@ -1,3 +1,5 @@
+=================================================
+
 mkdir -p ~/volumes/postgres
 
 podman run -d \
@@ -12,6 +14,7 @@ podman run -d \
 optional : -e POSTGRES_DB=myDB \
 
 =================================================
+
 mkdir -p ~/volumes/minio
 
 podman run -d \
@@ -27,6 +30,7 @@ podman run -d \
 password mut be at least 8 character 
 
 =================================================
+
 mkdir -p ~/volumes/meilisearch
 
 podman run -d \
@@ -38,3 +42,23 @@ podman run -d \
 
 ***
 optional : -e MEILI_MASTER_KEY=your_strong_api_key_here \
+
+=================================================
+
+podman pull docker.io/surrealdb/surrealdb:latest
+mkdir -p ~/volumes/surrealdb
+
+podman run -d \
+  --name surrealdb \
+  -p 9002:8000 \
+  -p 9003:9000 \
+  -v ~/volumes/surrealdb:/var/lib/surreal \
+  -e SURREAL_LOG=DEBUG \
+  -e SURREAL_WS=true \
+  surrealdb/surrealdb:latest \
+  start --bind 0.0.0.0:8000 --log debug --user root --pass root
+
+***
+-p 9000:9000: Optional if you're using the built-in web UI.
+
+  =================================================
