@@ -1,0 +1,7 @@
+use psql => sudo -u [user] psql => sudo -u postgres psql
+
+quit psql = > \q
+
+list all tables => \l+
+
+delete db => DROP DATABASE database_name;
