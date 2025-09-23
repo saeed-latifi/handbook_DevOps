@@ -1,0 +1,4 @@
+add task => pm2 start pnpm --name "Dev Server" -- run dev
+
+startup => pm2 startup
+save => pm2 save

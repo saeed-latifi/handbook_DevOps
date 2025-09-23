@@ -1,1 +1,6 @@
 clear unStaged changes => git restore .
+
+
+origin ========================
+show repo origin => git remote -v
+change repo origin => git remote set-url origin <NEW_GIT_URL_HERE>
