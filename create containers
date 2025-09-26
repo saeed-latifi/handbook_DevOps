@@ -59,6 +59,16 @@ podman run -d \
   start --bind 0.0.0.0:8000 --log debug --user root --pass root
 
 ***
--p 9000:9000: Optional if you're using the built-in web UI.
+# -p 9000:9000: Optional if you're using the built-in web UI \
 
-  =================================================
+=================================================
+
+podman pull rustfs/rustfs:latest
+podman volume create rustfs_data
+
+podman run -d \
+  --name rustfs \
+  -p 9000:9000 \
+  -v rustfs_data:/data \
+  rustfs/rustfs:latest
+=================================================
