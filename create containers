@@ -15,7 +15,9 @@ optional : -e POSTGRES_DB=myDB \
 
 =================================================
 
-mkdir -p ~/volumes/minio
+# mkdir -p ~/volumes/minio
+podman pull docker.arvancloud.ir/minio/minio
+podman volume create minio_data
 
 podman run -d \
   --name minio \
@@ -23,11 +25,13 @@ podman run -d \
   -p 9001:9001 \
   -e MINIO_ROOT_USER=admin \
   -e MINIO_ROOT_PASSWORD=password12345 \
-  -v ~/volumes/minio:/data \
-  docker.io/minio/minio server /data --console-address :9001
+  -v minio_data:/data \
+  minio/minio server /data --console-address :9001
 
 ***
-password mut be at least 8 character 
+# password mut be at least 8 character 
+
+podman run -d --name minio -p 9000:9000 -p 9001:9001 -e MINIO_ROOT_USER=admin -e MINIO_ROOT_PASSWORD=password12345 -v minio_data:/data minio/minio server /data --console-address :9001
 
 =================================================
 
@@ -70,5 +74,10 @@ podman run -d \
   --name rustfs \
   -p 9000:9000 \
   -v rustfs_data:/data \
-  rustfs/rustfs:latest
+  rustfs/rustfs:latest\
 =================================================
+
+podman pull docker.arvancloud.ir/rustfs/rustfs
+podman volume create S3
+
+podman run -d --name rustfs -p 9000:9000 -v S3:/data rustfs/rustfs:latest
