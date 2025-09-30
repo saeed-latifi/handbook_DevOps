@@ -1,4 +1,4 @@
-add task => pm2 start pnpm --name "Dev Server" -- run dev
+add task => pm2 start pnpm --name "app-name" -- run start
 
 startup => pm2 startup
 save => pm2 save
