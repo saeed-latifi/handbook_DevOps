@@ -1,0 +1,10 @@
+
+# soft link
+sudo ln -s /etc/nginx/sites-available/your_site.conf /etc/nginx/sites-enabled/
+
+sudo nginx -t
+sudo nginx -s reload
+
+# SSL
+sudo certbot --nginx -d example.com -d www.example.com
+
